@@ -1,0 +1,29 @@
+PLANNING – ÉQUIPE MENUISERIE ANGERS
+
+Contenu
+- index.html : application
+- manifest.webmanifest : configuration d'installation
+- sw.js : cache hors connexion
+- icon.svg : icône
+
+Fonctionnalités
+- saisie quotidienne des chiffres
+- équipe et horaires modifiables
+- ajout/suppression de collaborateurs
+- rappels et informations modifiables
+- sauvegarde automatique locale par date
+- impression / export PDF via la fonction Imprimer du téléphone
+- mise en cache pour une utilisation hors connexion après le premier chargement
+
+INSTALLATION
+L'application doit être publiée sur une adresse HTTPS pour être installable comme une PWA.
+1. Décompresser le dossier.
+2. Déposer les 4 fichiers sur un hébergement web HTTPS (par exemple votre hébergement habituel).
+3. Ouvrir l'adresse sur le téléphone.
+4. iPhone : bouton Partager > Sur l'écran d'accueil.
+   Android : menu du navigateur > Installer l'application / Ajouter à l'écran d'accueil.
+
+IMPORTANT
+Les données sont stockées uniquement dans le navigateur de ce téléphone (localStorage).
+Elles ne sont pas synchronisées et peuvent être perdues si les données du navigateur sont effacées.
+Exporter en PDF régulièrement pour archiver ou partager un planning.

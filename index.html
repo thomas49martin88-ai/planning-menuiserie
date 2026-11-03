@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#173b78">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Planning équipe">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Planning – Équipe Menuiserie</title>
+<style>
+:root{--navy:#173b78;--blue:#2563eb;--ink:#172033;--muted:#64748b;--line:#e2e8f0;--bg:#f3f6fb;--green:#15803d;--amber:#a16207;--purple:#6d28d9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:linear-gradient(120deg,#1d4ed8,#173b78);color:#fff;padding:22px 18px 24px;border-radius:0 0 22px 22px;box-shadow:0 8px 24px #173b7825}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:12px;font-weight:800;letter-spacing:.12em;opacity:.85;text-transform:uppercase}
+h1{font-size:clamp(20px,5vw,27px);line-height:1.15;margin:10px 0 14px}.date-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input,textarea,select,button{font:inherit}input,textarea,select{border:1px solid var(--line);border-radius:10px;padding:10px 11px;background:#fff;color:var(--ink);min-width:0;width:100%}
+header input{width:auto;color:#fff;background:#ffffff20;border-color:#ffffff55;color-scheme:dark}
+main{max-width:900px;margin:16px auto;padding:0 14px 40px}.card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:16px;margin:14px 0;box-shadow:0 4px 16px #17203308}
+.card h2{margin:0 0 14px;color:var(--navy);font-size:17px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metric{border:1px solid var(--line);border-radius:13px;padding:13px;background:#fbfdff}.metric h3{margin:0 0 9px;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.field{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:7px 0}.field label{font-size:13px;color:var(--muted)}.field input{max-width:145px;text-align:right;font-weight:750}
+.team-head,.person{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr) 38px;gap:9px;align-items:center}
+.team-head{font-size:11px;text-transform:uppercase;color:var(--muted);font-weight:800;padding:0 2px 7px}
+.person{padding:9px 0;border-top:1px solid #eef2f7}.namebox{display:flex;align-items:center;gap:8px}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#e7efff;color:var(--navy);font-weight:800;flex:none}
+.timebox{display:flex;gap:6px;align-items:center}.timebox input{font-size:13px}.status{max-width:92px}
+.iconbtn{border:0;background:#fff0f0;color:#b91c1c;border-radius:9px;height:36px;cursor:pointer;font-size:18px}
+button{border:0;border-radius:11px;padding:11px 14px;font-weight:750;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#eaf0ff;color:var(--navy)}.ghost{background:#f1f5f9;color:#334155}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.notice{background:#fffbeb;border-color:#fde68a}.notice h2{color:var(--amber)}.info{background:#eff6ff;border-color:#bfdbfe}.info h2{color:var(--navy)}
+textarea{min-height:80px;resize:vertical}.small{font-size:12px;color:var(--muted)}.save-state{font-size:12px;color:#dbeafe}.danger{background:#fee2e2;color:#991b1b}
+@media(max-width:560px){main{padding:0 10px 28px}.card{padding:13px}.grid{gap:8px}.metric{padding:10px}.field{display:block}.field input{max-width:none;margin-top:4px;text-align:left}.team-head{grid-template-columns:1fr 1fr 30px}.person{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) 32px;gap:6px}.namebox{gap:5px}.namebox input{padding:9px 7px;font-size:13px}.avatar{width:29px;height:29px}.timebox{display:block}.timebox input{padding:8px 7px}.status{max-width:none;margin-top:4px}.iconbtn{height:32px}}
+@media print{body{background:#fff;font-size:11px}header{border-radius:0;box-shadow:none;padding:12px 16px}main{max-width:none;margin:8px auto;padding:0}.card{box-shadow:none;break-inside:avoid;margin:8px 0;padding:10px}.actions,.iconbtn,.small,.save-state{display:none!important}input,textarea,select{border:0;padding:2px;background:transparent!important;color:#111!important;appearance:none}header input{color:#fff!important}textarea{min-height:35px}.person{padding:4px 0}.avatar{width:25px;height:25px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="topline"><div class="brand">👥 Équipe Menuiserie Angers</div><div class="save-state" id="saveState">Enregistrement automatique</div></div>
+  <h1>Planning & organisation de l'équipe</h1>
+  <div class="date-wrap"><label for="planDate">Planning du</label><input id="planDate" type="date" aria-label="Date du planning"></div>
+</header>
+<main>
+  <section class="card">
+    <h2>📊 Point chiffre</h2>
+    <div class="grid">
+      <div class="metric"><h3>📈 CA de la veille / référence</h3>
+        <div class="field"><label for="caVeille">CA (€)</label><input id="caVeille" inputmode="decimal" placeholder="0 €"></div>
+        <div class="field"><label for="objVeille">Objectif CA (€)</label><input id="objVeille" inputmode="decimal" placeholder="0 €"></div>
+      </div>
+      <div class="metric"><h3>🎯 Objectif du jour</h3>
+        <div class="field"><label for="caObjectif">CA (€)</label><input id="caObjectif" inputmode="decimal" placeholder="0 €"></div>
+        <div class="field"><label for="ca2025">CA 2025 (€)</label><input id="ca2025" inputmode="decimal" placeholder="0 €"></div>
+      </div>
+    </div>
+  </section>
+  <section class="card">
+    <h2>👥 Organisation du jour</h2>
+    <div class="team-head"><span>Collaborateur</span><span>Horaire / statut</span><span></span></div>
+    <div id="team"></div>
+    <div class="actions"><button class="secondary" id="addPerson">＋ Ajouter un collaborateur</button></div>
+  </section>
+  <section class="card notice"><h2>📌 Rappels</h2><textarea id="reminders" placeholder="Saisir les rappels du jour…"></textarea></section>
+  <section class="card info"><h2>ℹ️ Informations</h2><textarea id="information" placeholder="Absences, congés, opérations commerciales, logistique…"></textarea></section>
+  <div class="actions">
+    <button class="primary" id="printBtn">📄 Exporter / imprimer en PDF</button>
+    <button class="ghost" id="newDay">＋ Nouveau planning vierge</button>
+    <button class="ghost" id="resetBtn">Réinitialiser ce planning</button>
+  </div>
+  <p class="small">Les modifications sont enregistrées automatiquement sur cet appareil. Pense à exporter un PDF si tu souhaites conserver ou transmettre une version figée.</p>
+</main>
+<script>
+const defaultPeople=[
+ ["Fateh","08h00 – 12h30","RR1"],["Willy","12h30 – 17h00","VE1"],
+ ["Jérémy","08h30 – 16h30","VE1"],["Louise","11h00–13h00 / 15h00–19h30","VE1"],
+ ["Cochard","10h00–13h00 / 15h00–19h30","VE1"],["Paulin","14h00 – 20h00","VE1"],
+ ["Mayol","14h00 – 20h30","VE1"],["Julie","08h00 – 12h30","VE1"]
+];
+const fields=["caVeille","objVeille","caObjectif","ca2025","reminders","information"];
+const dateEl=document.getElementById("planDate"), teamEl=document.getElementById("team"), stateEl=document.getElementById("saveState");
+let data={};
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+function key(){return "planning-menuiserie-"+dateEl.value}
+function readForm(){const obj={};fields.forEach(id=>obj[id]=document.getElementById(id).value);obj.people=[...teamEl.querySelectorAll(".person")].map(row=>({name:row.querySelector(".person-name").value,time:row.querySelector(".person-time").value,status:row.querySelector(".person-status").value}));return obj}
+function save(){if(!dateEl.value)return;localStorage.setItem(key(),JSON.stringify(readForm()));stateEl.textContent="✓ Enregistré sur cet appareil";}
+let saveTimer;function scheduleSave(){stateEl.textContent="Enregistrement…";clearTimeout(saveTimer);saveTimer=setTimeout(save,250)}
+function makePerson(p={name:"",time:"",status:""}){const row=document.createElement("div");row.className="person";
+ const namebox=document.createElement("div");namebox.className="namebox";
+ const avatar=document.createElement("div");avatar.className="avatar";avatar.textContent=(p.name||"?").trim().charAt(0).toUpperCase();
+ const name=document.createElement("input");name.className="person-name";name.placeholder="Nom";name.value=p.name||"";name.setAttribute("aria-label","Nom du collaborateur");
+ name.addEventListener("input",()=>{avatar.textContent=name.value.trim().charAt(0).toUpperCase()||"?";scheduleSave()});namebox.append(avatar,name);
+ const timebox=document.createElement("div");timebox.className="timebox";
+ const time=document.createElement("input");time.className="person-time";time.placeholder="08h00 – 17h00";time.value=p.time||"";time.setAttribute("aria-label","Horaire");
+ const status=document.createElement("input");status.className="person-status status";status.placeholder="Statut";status.value=p.status||"";status.setAttribute("aria-label","Statut");
+ [time,status].forEach(el=>el.addEventListener("input",scheduleSave));timebox.append(time,status);
+ const del=document.createElement("button");del.className="iconbtn";del.type="button";del.textContent="×";del.title="Supprimer ce collaborateur";del.addEventListener("click",()=>{row.remove();scheduleSave()});
+ row.append(namebox,timebox,del);teamEl.append(row);
+}
+function load(date){dateEl.value=date;let saved={};try{saved=JSON.parse(localStorage.getItem(key())||"{}")}catch(e){}
+ fields.forEach(id=>document.getElementById(id).value=saved[id]||"");
+ teamEl.innerHTML="";(saved.people||defaultPeople).forEach(p=>makePerson(Array.isArray(p)?{name:p[0],time:p[1],status:p[2]}:p));
+ stateEl.textContent=localStorage.getItem(key())?"Planning chargé":"Nouveau planning";}
+dateEl.value=today();load(today());
+dateEl.addEventListener("change",()=>load(dateEl.value));
+fields.forEach(id=>document.getElementById(id).addEventListener("input",scheduleSave));
+document.getElementById("addPerson").addEventListener("click",()=>{makePerson();scheduleSave()});
+document.getElementById("printBtn").addEventListener("click",()=>{save();window.print()});
+document.getElementById("newDay").addEventListener("click",()=>{if(!confirm("Créer un planning vierge pour cette date ? Les données déjà enregistrées à cette date seront remplacées."))return;fields.forEach(id=>document.getElementById(id).value="");teamEl.innerHTML="";defaultPeople.forEach(p=>makePerson({name:p[0],time:"",status:""}));save()});
+document.getElementById("resetBtn").addEventListener("click",()=>{if(!confirm("Effacer les données de ce planning ?"))return;localStorage.removeItem(key());load(dateEl.value)});
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script>
+</body></html>
